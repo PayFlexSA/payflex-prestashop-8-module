@@ -218,6 +218,10 @@ class PayFlexService {
     foreach ($items as $i=>$item) {
       $OrderBodyString .= $item . (($i < count($items)-1) ? ',' : '');
     }
+
+    $ecommerce_platform_string  = 'PrestaShop';
+    if(defined('_PS_VERSION_')) $ecommerce_platform_string  = 'PrestaShop ' . _PS_VERSION_;
+
     $OrderBodyString .= '],
       "merchant": {
         "redirectConfirmUrl": "'. $order->confirm_url .'&status=confirmed",
@@ -226,7 +230,13 @@ class PayFlexService {
       "merchantReference": "'. $order->order_id .'",
       "token": "'. $order->order_id .'",
       "taxAmount": '. ($order->total - $order->subtotal) .',
-      "shippingAmount":'. ($order->total - $order->subtotal) .'
+      "shippingAmount":'. ($order->total - $order->subtotal) .',
+      "merchantSystemInformation": {
+        "php_version": "' . phpversion() . '",
+        "prestashop_version": "' . $ecommerce_platform_string . '",
+        "plugin_version": "2.0.0",
+        "platform": "PrestaShop"
+      }
     }';
 
     return $OrderBodyString;
