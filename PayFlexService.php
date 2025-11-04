@@ -234,7 +234,7 @@ class PayFlexService {
       "merchantSystemInformation": {
         "php_version": "' . phpversion() . '",
         "prestashop_version": "' . $ecommerce_platform_string . '",
-        "plugin_version": "2.0.0",
+        "plugin_version": "2.0.1",
         "platform": "PrestaShop"
       }
     }';
